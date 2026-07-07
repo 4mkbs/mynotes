@@ -346,3 +346,41 @@ Access-Control-Allow-Credentials: true
 - Misconfigured CORS can expose sensitive data.
 
 # how http works
+
+HTTP (Hypertext Transfer Protocol) is a request-response protocol used by clients and servers to exchange data.
+
+## Basic flow
+
+1. A client sends an HTTP request to a server.
+2. The request includes a method, path, headers, and sometimes a body.
+3. The server processes the request and returns an HTTP response.
+4. The response includes a status code, headers, and sometimes a body.
+
+## Common methods
+
+- `GET` — retrieve data
+- `POST` — create data
+- `PUT` — replace data
+- `PATCH` — partially update data
+- `DELETE` — remove data
+
+## Example
+
+```http
+GET /users HTTP/1.1
+Host: example.com
+Accept: application/json
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[{"id":1,"name":"Alice"}]
+```
+
+## Key ideas
+
+- HTTP is stateless: each request is independent.
+- Headers add metadata such as content type, caching, and authentication.
+- HTTPS is HTTP over TLS and encrypts traffic.
