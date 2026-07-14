@@ -80,13 +80,20 @@ There are five classes of status codes:
 - `User-Agent` - Identifies the client application
 - `Accept` - Specifies the media types accepted by the client
 - `Authorization` - Provides credentials for authentication
+- `Connection` - Controls whether the network connection stays open after the current transaction finishes
+- `Date` - Contains the date and time at which the message was originated
+- `Cache-Control` - Controls caching behavior for requests and responses
 
 ### Request Headers
 
 - `Host` - Specifies the domain name of the server
 - `Cookie` - Sends stored client-side data to the server
 - `Accept-Encoding` - Specifies supported compression formats
-- `Cache-Control` - Controls caching behavior
+- `Accept-Language` - Specifies the natural languages and locales that the client prefers
+- `Origin` - Specifies the origin of a cross-origin request
+- `Referer` - Specifies the address of the previous web page from which a link was followed
+- `If-None-Match` - Makes the request conditional, checking if the resource ETag has changed
+- `If-Modified-Since` - Makes the request conditional, checking if the resource has changed since a timestamp
 
 ### Response Headers
 
@@ -94,6 +101,12 @@ There are five classes of status codes:
 - `Server` - Identifies the server software
 - `Location` - Provides a redirect target URI
 - `WWW-Authenticate` - Indicates how to authenticate to access a resource
+- `Access-Control-Allow-Origin` - Specifies which origins are allowed to access the resource (CORS)
+- `Content-Encoding` - Specifies the compression algorithm used on the response body (e.g., `gzip`, `br`)
+- `ETag` - A unique version identifier for the returned resource representation
+- `Last-Modified` - The date and time at which the resource was last modified
+- `Strict-Transport-Security` - Forces the browser to connect to the server only via secure HTTPS
+- `Content-Security-Policy` - Restricts resources (scripts, images, etc.) the browser is allowed to load
 
 ### Notes
 
@@ -136,13 +149,17 @@ HTTP caching allows clients (browsers), proxies, and CDNs to store responses and
 
 - `Cache-Control`: Main caching directives.
   - `max-age=<seconds>`: Fresh for this duration.
-  - `s-maxage=<seconds>`: Freshness for shared caches.
-  - `public`: May be cached by shared caches.
+  - `s-maxage=<seconds>`: Freshness for shared caches (e.g. CDNs).
+  - `public`: May be cached by public/shared caches.
   - `private`: Only browser/private cache may store it.
   - `no-cache`: May be stored, but must revalidate before reuse.
   - `no-store`: Do not store at all.
   - `must-revalidate`: Once stale, must revalidate.
+  - `proxy-revalidate`: Similar to `must-revalidate` but applies only to shared caches.
   - `immutable`: Content will not change during freshness lifetime.
+  - `stale-while-revalidate=<seconds>`: Allow serving stale content while fetching a fresh copy in background.
+  - `stale-if-error=<seconds>`: Allow serving stale content if server returns an error.
+  - `no-transform`: Prevent intermediaries (CDNs/proxies) from transforming content (like compressing images).
 - `Expires`: Absolute expiration date/time (older mechanism).
 - `ETag`: Entity tag (version identifier).
 - `Last-Modified`: Timestamp of last change.
@@ -150,7 +167,13 @@ HTTP caching allows clients (browsers), proxies, and CDNs to store responses and
 
 #### Request Headers
 
-- `Cache-Control`: Client-side cache behavior (for example `max-age=0`, `no-cache`).
+- `Cache-Control`: Client-side cache behavior:
+  - `no-cache`: Must revalidate cached response with server before serving.
+  - `no-store`: Client requests that no cache store request/response.
+  - `max-age=<seconds>`: Client only accepts response younger than specified age.
+  - `max-stale[=<seconds>]`: Client accepts a stale response, optionally within limit.
+  - `min-fresh=<seconds>`: Client accepts response only if it remains fresh for at least specified seconds.
+  - `only-if-cached`: Return only a cached response without making network request.
 - `If-None-Match`: Validator using `ETag`.
 - `If-Modified-Since`: Validator using `Last-Modified`.
 
