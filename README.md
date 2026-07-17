@@ -1,3 +1,8 @@
+---
+tags:
+  - index
+  - main
+---
 # My Notes Index
 
 This repository is an index of my notes. It currently links to the available markdown notes and gives a quick idea of what each file covers.
@@ -5,7 +10,8 @@ This repository is an index of my notes. It currently links to the available mar
 ## Notes
 
 - [http.md](http.md) - HTTP fundamentals, methods, and common headers.
-
+- [[productivity methods]]
+- [[how-browser-works]]
 ## Current Focus
 
 - Web fundamentals
@@ -17,3 +23,8 @@ This repository is an index of my notes. It currently links to the available mar
 - HTTPS and TLS
 - HTTP status codes
 - Request and response examples
+
+
+
+
+--- 
