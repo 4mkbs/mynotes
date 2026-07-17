@@ -6,14 +6,14 @@ HTTP stands for Hypertext Transfer Protocol. It is the foundation of the World W
 - **Purpose**: HTTP is the protocol used for client-server communication
 - **Data Format**: HTTP requests carry encoded information in the form of headers and body
 
-## http messages
+## HTTP Messages
 
-both requests and responses are structured as HTTP messages, which consist of a start line, headers, and an optional body.
+Both HTTP requests and responses are structured as **HTTP messages**, which consist of three main parts:
 
-start line: The start line indicates the type of message (request or response) and provides essential information about the request or response.
-http methods also known as verbs
-request header is case-insensitive and consists of key-value pairs and use colon to separate the key and value.
-some line are long like cookie header.
+1. **Start Line**: Indicates the message type (request or response) and provides essential information (such as the HTTP method/verb, target URI, and protocol version for requests, or the protocol version and status code/text for responses).
+2. **Headers**: Case-insensitive key-value pairs separated by a colon (`:`), providing metadata about the message. Some header lines can be very long (e.g., the `Cookie` header).
+3. **Empty Line**: Indicates the end of the headers.
+4. **Body (Optional)**: Contains the actual data or payload of the message (e.g., JSON payload, HTML, image file).
 
 ## HTTP Methods
 
@@ -41,6 +41,7 @@ There are five classes of status codes:
   - `100 Continue`
   - `101 Switching Protocols`
   - `102 Processing`
+  - `103 Early Hints`
 
 - **2xx (Success)**: The request was received, understood, and accepted.
   - `200 OK`
@@ -52,15 +53,19 @@ There are five classes of status codes:
   - `301 Moved Permanently`
   - `302 Found`
   - `304 Not Modified`
+  - `307 Temporary Redirect`
+  - `308 Permanent Redirect`
 
 - **4xx (Client Error)**: The request contains incorrect syntax or cannot be fulfilled.
   - `400 Bad Request`
   - `401 Unauthorized`
+  - `402 Payment Required`
   - `403 Forbidden`
   - `404 Not Found`
   - `405 Method Not Allowed`
   - `409 Conflict`
-  - `422 Unprocessable Content`
+  - `422 Unprocessable Entity`
+  - `429 Too Many Requests`
 
 - **5xx (Server Error)**: The server failed to fulfill an apparently valid request.
   - `500 Internal Server Error`
@@ -114,7 +119,7 @@ There are five classes of status codes:
 - Each header uses a colon to separate the name and value
 - Long header values can be split across lines in some formats, but are usually written on one line
 
-## evolution of HTTP
+## Evolution of HTTP
 
 HTTP has evolved through several versions since its inception:
 
@@ -124,7 +129,7 @@ HTTP has evolved through several versions since its inception:
 - **HTTP/2**: Added multiplexing, header compression, binary framing, and server push.
 - **HTTP/3**: Uses the QUIC protocol over UDP for lower latency and better connection handling.
 
-### Key idea
+### Key Idea
 
 Each new version focused on making HTTP faster, more efficient, and more reliable.
 
@@ -206,7 +211,7 @@ HTTP caching allows clients (browsers), proxies, and CDNs to store responses and
 - Use `Vary` carefully; too many variations reduce cache hit rate.
 - Correct caching policy greatly improves performance and scalability.
 
-## http cookies
+## HTTP Cookies
 
 HTTP cookies are small key-value data stored by the browser and sent with matching requests to help maintain state.
 
@@ -267,7 +272,7 @@ Cookie: sessionId=abc123
 - Browsers also limit total cookies per domain.
 
 
-## http cors
+## HTTP CORS
 
 Cross-Origin Resource Sharing (CORS) is a browser mechanism that allows a web page from one origin to request resources from another origin.
 
@@ -368,7 +373,7 @@ Access-Control-Allow-Credentials: true
 - CORS does not stop requests from being sent; it limits JavaScript access to the response.
 - Misconfigured CORS can expose sensitive data.
 
-# how http works
+# How HTTP Works
 
 HTTP (Hypertext Transfer Protocol) is a request-response protocol used by clients and servers to exchange data.
 
